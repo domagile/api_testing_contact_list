@@ -90,9 +90,9 @@ def test_registration_duplicate_email(register_user, base_url, create_user_data)
         # Missing required fields
         ({"firstName": "", "lastName": "", "email": "", "password": ""}, HTTPStatus.BAD_REQUEST, "User validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required., email: Email is invalid, password: Path `password` is required"),
         ({"firstName": "", "lastName": "Doe", "email": "testemail@test.com", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: firstName"),
-        ({"firstName": "John", "lastName": "Doe", "email": "testemail@test.com", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: lastName"),
+        ({"firstName": "John", "lastName": "", "email": "testemail@test.com", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: lastName"),
         ({"firstName": "John", "lastName": "Doe", "email": "", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: email: Email is invalid"),
-        ({"firstName": "John", "lastName": "Doe", "email": "testemail@test.com", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: password: Path `password` is required."),
+        ({"firstName": "John", "lastName": "Doe", "email": "testemail@test.com", "password": ""}, HTTPStatus.BAD_REQUEST, "User validation failed: password: Path `password` is required."),
 
         # Invalid emails and password
         ({"firstName": "John", "lastName": "Doe", "email": "testemail@test,com", "password": "ValidPass123!"}, HTTPStatus.BAD_REQUEST, "User validation failed: email: Email is invalid"),
